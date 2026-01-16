@@ -21,7 +21,7 @@ try {
 
 async function testSupabaseConnection() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseclient
             .from('namatable_orablast')
             .select('*')
             .limit(1);
@@ -138,7 +138,7 @@ async function saveScoreToSupabase() {
             created_at: new Date().toISOString()
         };
 
-        const { data, error } = await supabase
+        const { data, error } = await supabaseclient
             .from('namatable_orablast')
             .insert([scoreData]);
 
@@ -166,7 +166,7 @@ async function getGlobalLeaderboard() {
         showLoading(true);
         clearError();
         
-        const { data, error } = await supabase
+        const { data, error } = await supabaseclient
             .from('namatable_orablast')
             .select('*')
             .order('score', { ascending: false })
@@ -205,7 +205,7 @@ async function getMyScores() {
             return getMyLocalScores();
         }
 
-        const { data, error } = await supabase
+        const { data, error } = await supabaseclient
             .from('namatable_orablast')
             .select('*')
             .eq('device_id', deviceId)
@@ -240,7 +240,7 @@ async function getTopPlayers() {
         clearError();
         
         // Get top 10 scores, group by highest score per player
-        const { data, error } = await supabase
+        const { data, error } = await supabaseclient
             .from('namatable_orablast')
             .select('player_name, score, created_at, device_id')
             .order('score', { ascending: false })
